@@ -1,7 +1,0 @@
-[33m1063dfb[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{0}: merge origin/master: Merge made by the 'recursive' strategy.
-[33m522805a[m HEAD@{1}: reset: moving to HEAD
-[33m522805a[m HEAD@{2}: commit: test
-[33mc7020e2[m HEAD@{3}: commit: test
-[33m51222f0[m HEAD@{4}: commit: Retrofit, rxjava, interceptor, structure MVP, network, sharedPrefs
-[33md04c0e5[m HEAD@{5}: commit: Retrofit, rxjava, interceptor, structure MVP, network, sharedPrefs
-[33m7ebfdc3[m HEAD@{6}: clone: from git@github.com:yevbes/Movieland.git
