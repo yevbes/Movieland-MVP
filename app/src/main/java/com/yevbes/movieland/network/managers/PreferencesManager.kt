@@ -10,7 +10,7 @@ object PreferencesManager {
 
     fun saveAuthToken(authToken: String) {
         val editor = mSharedPreferences.edit()
-        editor.putString(ConstantManager.AUTH_TOKEN_KEY, authToken)
+        editor.putString(ConstantManager.AUTH_TOKEN_KEY, "Bearer $authToken")
         editor.apply()
     }
 

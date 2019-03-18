@@ -12,6 +12,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         mPresenter = MainPresenter(this)
+        mPresenter.getAuthRequestToken()
     }
 
     override fun onDestroy() {

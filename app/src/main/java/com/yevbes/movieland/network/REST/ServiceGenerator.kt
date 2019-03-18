@@ -27,7 +27,7 @@ class ServiceGenerator {
             // HttpLoggingInterceptor
             val loggingInterceptor = HttpLoggingInterceptor()
             loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-            httpClient.addInterceptor(ErrorInterceptor())
+//            httpClient.addInterceptor(ErrorInterceptor())
             httpClient.addInterceptor(HeaderInterceptor())
             httpClient.addInterceptor(loggingInterceptor)
 

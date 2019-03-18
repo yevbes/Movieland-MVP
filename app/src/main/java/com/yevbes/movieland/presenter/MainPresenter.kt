@@ -42,8 +42,6 @@ class MainPresenter(
     private fun getObservable(): Observable<AuthTokenRes> {
         return restService
             .getAuthRequestToken(
-                AppConfig.API_KEY,
-                AppConfig.API_READ_ACCESS_TOKEN,
                 AuthTokenReq(AppConfig.REDIRECT_TO)
             )
             .subscribeOn(Schedulers.io())

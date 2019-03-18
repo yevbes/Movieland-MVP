@@ -4,6 +4,9 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
+import io.reactivex.plugins.RxJavaPlugins
+
+
 
 /** class for initialize DataBase, get SharedPrefs, ... */
 class MovielandApplication : Application() {
@@ -27,5 +30,6 @@ class MovielandApplication : Application() {
         super.onCreate()
         MovielandApplication.mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         MovielandApplication.sApplication = this
+        RxJavaPlugins.setErrorHandler { }
     }
 }

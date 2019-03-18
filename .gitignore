@@ -8,6 +8,10 @@
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
 
+# Ignore AppConfig file
+/app/src/main/java/com/yevbes/movieland/utils/AppConfig.kt
+
+
 .DS_Store
 /build
 /captures

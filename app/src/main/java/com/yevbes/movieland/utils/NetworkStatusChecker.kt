@@ -17,7 +17,7 @@ class NetworkStatusChecker {
             val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             val networkInfo = cm.activeNetworkInfo
 
-            return networkInfo != null && networkInfo.isConnectedOrConnecting
+            return networkInfo != null && networkInfo.isConnected
         }
 
     }
