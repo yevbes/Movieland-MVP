@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+            android:id="@+id/nav_menu_1"
+            android:checkableBehavior="single">
+
+        <item
+                android:id="@+id/nav_top_rated_movies"
+                android:icon="@drawable/ic_baseline_star_half_24px"
+                android:title="@string/action_top_rated_movies"/>
+
+        <item
+                android:id="@+id/nav_coming_soon"
+                android:icon="@drawable/ic_baseline_movie_24px"
+                android:title="@string/action_coming_soon"/>
+
+        <item
+                android:id="@+id/nav_in_theaters"
+                android:icon="@drawable/ic_baseline_theaters_24px"
+                android:title="@string/action_in_theaters"/>
+
+        <item
+                android:id="@+id/nav_latest_trailers"
+                android:icon="@drawable/ic_baseline_video_library_24px"
+                android:title="@string/action_latest_trailers"/>
+
+        <item
+                android:id="@+id/nav_most_popular_movies"
+                android:icon="@drawable/ic_baseline_stars_24px"
+                android:title="@string/action_most_popular_movies"/>
+
+        <item
+                android:id="@+id/nav_showtimes_tickets"
+                android:icon="@drawable/ic_baseline_videocam_24px"
+                android:title="@string/action_showtimes_tickets"/>
+    </group>
+
+
+    <group
+            android:id="@+id/nav_menu_2"
+            android:checkableBehavior="none"
+            android:visible="false">
+        <item android:title="@string/group_menu_settings">
+            <menu>
+                <item
+                        android:id="@+id/nav_settings"
+                        android:icon="@drawable/ic_baseline_settings_20px"
+                        android:title="@string/action_settings"/>
+
+                <item
+                        android:id="@+id/nav_help"
+                        android:icon="@drawable/ic_baseline_help_24px"
+                        android:title="@string/action_help"/>
+            </menu>
+        </item>
+    </group>
+</menu>

@@ -17,4 +17,14 @@ object PreferencesManager {
     fun getAuthToken(): String? {
         return mSharedPreferences.getString(ConstantManager.AUTH_TOKEN_KEY, "null")
     }
+
+    fun saveAuthAccessToken(authAccessToken: String) {
+        val editor = mSharedPreferences.edit()
+        editor.putString(ConstantManager.AUTH_ACCESS_TOKEN_KEY, authAccessToken)
+        editor.apply()
+    }
+
+    fun getAuthAccessToken(): String? {
+        return mSharedPreferences.getString(ConstantManager.AUTH_ACCESS_TOKEN_KEY, "null")
+    }
 }
