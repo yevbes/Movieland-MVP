@@ -3,12 +3,15 @@ package com.yevbes.movieland
 import android.content.res.Configuration
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.os.Handler
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import com.yevbes.movieland.databinding.ActivityMainBinding
 import com.yevbes.movieland.interfaces.contracts.MainContract
 import com.yevbes.movieland.presenter.MainPresenter
@@ -17,9 +20,10 @@ import com.yevbes.movieland.utils.ConstantManager
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, MainContract.View {
     private lateinit var mPresenter: MainContract.Presenter
-    private lateinit var binding: ActivityMainBinding
     private lateinit var drawerToggle: ActionBarDrawerToggle
+    private var doubleBackToExitPressedOnce = false
     private var currentDrawerItemID: Int = 0
+    lateinit var binding: ActivityMainBinding
 
     private val topRatedMoviesFragment: TopRatedMoviesFragment by lazy {
         TopRatedMoviesFragment()
@@ -61,7 +65,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             loadFragment(ConstantManager.ACTION_TOP_RATED_MOVIES)
         }
 
-        // TODO: NavDrawer settings
+        // TODO: NavDrawer settings arrow button
 
         mPresenter = MainPresenter(this)
     }
@@ -134,6 +138,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawerToggle.onConfigurationChanged(newConfig)
     }
 
+    override fun onBackPressed() {
+        if (binding.dl.isDrawerOpen(GravityCompat.START)){
+            binding.dl.closeDrawer(GravityCompat.START)
+        }else{
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed()
+                return
+            }
+
+            this.doubleBackToExitPressedOnce = true
+            Toast.makeText(this, getString(R.string.double_back_to_exit), Toast.LENGTH_SHORT).show()
+
+            Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
+        }
+    }
+
     private fun setupViews() {
         setSupportActionBar(binding.tb)
 
@@ -153,6 +173,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.string.navigation_drawer_open, R.string.navigation_drawer_close
         )
 
+        binding.nv.setNavigationItemSelectedListener(this)
+
         binding.dl.addDrawerListener(drawerToggle)
         drawerToggle.syncState()
     }
@@ -165,7 +187,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 supportFragmentManager
                     .beginTransaction()
                     .replace(
-                        R.id.fragmentContainer,
+                        R.id.clMain,
                         topRatedMoviesFragment,
                         getString(R.string.action_top_rated_movies)
                     )
@@ -175,21 +197,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             ConstantManager.ACTION_COMING_SOON -> {
                 supportFragmentManager
                     .beginTransaction()
-                    .replace(R.id.fragmentContainer, comingSoonFragment, getString(R.string.action_coming_soon))
+                    .replace(R.id.clMain, comingSoonFragment, getString(R.string.action_coming_soon))
                     .commit()
 
             }
             ConstantManager.ACTION_IN_THEATERS -> {
                 supportFragmentManager
                     .beginTransaction()
-                    .replace(R.id.fragmentContainer, inTheatersFragment, getString(R.string.action_in_theaters))
+                    .replace(R.id.clMain, inTheatersFragment, getString(R.string.action_in_theaters))
                     .commit()
 
             }
             ConstantManager.ACTION_LATEST_TRAILERS -> {
                 supportFragmentManager
                     .beginTransaction()
-                    .replace(R.id.fragmentContainer, latestTrailersFragment, getString(R.string.action_latest_trailers))
+                    .replace(R.id.clMain, latestTrailersFragment, getString(R.string.action_latest_trailers))
                     .commit()
 
             }
@@ -197,7 +219,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 supportFragmentManager
                     .beginTransaction()
                     .replace(
-                        R.id.fragmentContainer,
+                        R.id.clMain,
                         mostPopularMoviesFragment,
                         getString(R.string.action_most_popular_movies)
                     )
@@ -208,7 +230,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 supportFragmentManager
                     .beginTransaction()
                     .replace(
-                        R.id.fragmentContainer,
+                        R.id.clMain,
                         showtimesTicketsFragment,
                         getString(R.string.action_showtimes_tickets)
                     )
