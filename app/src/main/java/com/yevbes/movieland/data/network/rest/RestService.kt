@@ -7,6 +7,7 @@ import com.yevbes.movieland.presentation.main.model.res.AuthTokenRes
 import com.yevbes.movieland.presentation.top_rated.model.res.TopRatedMoviesRes
 import com.yevbes.movieland.utils.AppConfig
 import io.reactivex.Observable
+import retrofit2.Response
 import retrofit2.http.*
 
 interface RestService {
@@ -20,6 +21,11 @@ interface RestService {
         @Body redirectTo: AuthTokenReq
     ): Observable<AuthTokenRes>
 
+    @POST("${AppConfig.SITE_URL}auth/access?request_token={request_token}")
+    fun approveRequestToken(
+        @Path("request_token") requestToken: String
+    ): Observable<Response<Any>>
+
     @POST("auth/access_token")
     @Headers(
         "Authorization: ${AppConfig.API_READ_ACCESS_TOKEN}",
@@ -29,11 +35,8 @@ interface RestService {
         @Body requestToken: AuthAccessTokenReq
     ): Observable<AuthAccessTokenRes>
 
-    @GET("list/{list_id}")
+    @GET("movie/top_rated")
     fun getTopRatedMovies(
-        @Path("list_id") listId: Int,
-        @Query("page") page: Int,
-        @Query("sort_by") sortBy: String
     ): Observable<TopRatedMoviesRes>
 
 

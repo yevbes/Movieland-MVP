@@ -4,6 +4,8 @@
     <!-- MAIN_CONTRACT SECTION -->
     <string name="error_message_get_auth_token">Error fetching authentication request token</string>
     <string name="error_message_network_connection">Please check internet connection</string>
+    <string name="error_message_get_auth_access_token">Error fetching authentication user</string>
+    <string name="error_message_approve_request_token">Error approve request code</string>
     <!-- END MAIN_CONTRACT SECTION -->
 
 

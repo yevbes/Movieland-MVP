@@ -14,7 +14,9 @@ class AndroidDisposable {
     }
 
     fun dispose() {
-        compositeDisposable?.dispose()
-        compositeDisposable = null
+        if (compositeDisposable != null) {
+            compositeDisposable?.dispose()
+            compositeDisposable = null
+        }
     }
 }

@@ -5,7 +5,6 @@ import com.yevbes.movieland.data.network.rest.ServiceGenerator
 import com.yevbes.movieland.presentation.top_rated.TopRatedMoviesContract
 import com.yevbes.movieland.presentation.top_rated.model.res.TopRatedMoviesRes
 import com.yevbes.movieland.utils.AndroidDisposable
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.annotations.NonNull
 import io.reactivex.observers.DisposableObserver
@@ -26,35 +25,25 @@ object TopRatedInteractor : TopRatedMoviesContract.Interactor {
         compositeDisposable: AndroidDisposable
     ) {
         compositeDisposable.add(
-            getObservable()
-                .subscribeWith(getObserver(listener))
+            restService
+                .getTopRatedMovies(
+                )
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : DisposableObserver<TopRatedMoviesRes>() {
+
+                    override fun onNext(@NonNull authTokenRes: TopRatedMoviesRes) {
+                        listener.onSuccess(authTokenRes)
+                    }
+
+                    override fun onError(@NonNull e: Throwable) {
+                        listener.onFailure(e)
+                    }
+
+                    override fun onComplete() {
+                        listener.onComplete()
+                    }
+                })
         )
     }
-
-    private fun getObservable(): Observable<TopRatedMoviesRes> {
-        return restService
-            .getTopRatedMovies(
-                1,1,"vote_average.desc"
-            )
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-    }
-
-    private fun getObserver(listener: OnTopRatedMoviesObtained): DisposableObserver<TopRatedMoviesRes> {
-        return object : DisposableObserver<TopRatedMoviesRes>() {
-
-            override fun onNext(@NonNull authTokenRes: TopRatedMoviesRes) {
-                listener.onSuccess(authTokenRes)
-            }
-
-            override fun onError(@NonNull e: Throwable) {
-                listener.onFailure(e)
-            }
-
-            override fun onComplete() {
-                listener.onComplete()
-            }
-        }
-    }
-
 }

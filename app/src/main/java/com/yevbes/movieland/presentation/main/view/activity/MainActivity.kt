@@ -17,18 +17,21 @@ import com.yevbes.movieland.presentation.comming_soon.view.fragment.ComingSoonFr
 import com.yevbes.movieland.presentation.in_theaters.view.fragment.InTheatersFragment
 import com.yevbes.movieland.presentation.latest_trailers.view.fragment.LatestTrailersFragment
 import com.yevbes.movieland.presentation.main.MainContract
+import com.yevbes.movieland.presentation.main.presenter.MainPresenter
 import com.yevbes.movieland.presentation.most_popular.view.fragment.MostPopularMoviesFragment
 import com.yevbes.movieland.presentation.showtimes_tickets.view.fragment.ShowtimesTicketsFragment
 import com.yevbes.movieland.presentation.top_rated.view.fragment.TopRatedMoviesFragment
+import com.yevbes.movieland.utils.AndroidDisposable
 import com.yevbes.movieland.utils.ConstantManager
 
 class MainActivity : AppCompatActivity(), MainContract.View, NavigationView.OnNavigationItemSelectedListener{
 
     private lateinit var drawerToggle: ActionBarDrawerToggle
-//    private val compositeDisposable = AndroidDisposable()
+    private val compositeDisposable = AndroidDisposable()
     private var doubleBackToExitPressedOnce = false
     private var currentDrawerItemID: Int = 0
     lateinit var binding: ActivityMainBinding
+    private lateinit var mPresenter: MainContract.Presenter
 
     private val topRatedMoviesFragment: TopRatedMoviesFragment by lazy {
         TopRatedMoviesFragment()
@@ -56,13 +59,13 @@ class MainActivity : AppCompatActivity(), MainContract.View, NavigationView.OnNa
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
-
+        mPresenter = MainPresenter(this)
+//        mPresenter.getAuthRequestToken(compositeDisposable)
         setupViews()
 
         if (savedInstanceState == null) {
