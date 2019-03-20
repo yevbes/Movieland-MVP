@@ -19,10 +19,12 @@ class TopRatedMoviesPresenter(
             mInteractor.getTopRatedMovies(object : TopRatedInteractor.OnTopRatedMoviesObtained {
                 override fun onSuccess(topRatedMoviesRes: TopRatedMoviesRes) {
                     val top = topRatedMoviesRes
+                    // TODO: pass data to adapter mView.rellenarAdaptador()
                 }
 
                 override fun onFailure(e: Throwable) {
                     e.printStackTrace()
+                    // TODO: Failure
                 }
 
                 override fun onComplete() {
