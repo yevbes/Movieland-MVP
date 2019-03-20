@@ -3,6 +3,7 @@ package com.yevbes.movieland.presentation.top_rated.view.fragment
 
 import android.content.res.Configuration
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.LayoutInflater
@@ -62,7 +63,8 @@ class TopRatedMoviesFragment : Fragment(), TopRatedMoviesContract.View {
     }
 
     override fun displayNetworkStatusError(errorMessage: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        // TODO: test it
+        Snackbar.make(binding.cl,getString(R.string.error_message_network_connection),Snackbar.LENGTH_SHORT).show()
     }
 
     private fun setupViews() {

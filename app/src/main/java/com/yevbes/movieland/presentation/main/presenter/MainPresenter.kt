@@ -54,7 +54,6 @@ class MainPresenter(private val mView: MainContract.View) : MainContract.Present
         if (NetworkStatusChecker.isInternetConnected(context)) {
             mInteractor.approveRequestToken(object : MainInteractor.OnRequestTokenApproved {
                 override fun onSuccess(response: Any) {
-                    val res = response
                 }
 
                 override fun onFailure(e: Throwable) {

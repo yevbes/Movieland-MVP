@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.os.Handler
 import android.support.design.widget.NavigationView
+import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
@@ -165,6 +166,7 @@ class MainActivity : AppCompatActivity(), MainContract.View, NavigationView.OnNa
     }
 
     override fun displayNetworkStatusError(errorMessage: String) {
+        Snackbar.make(binding.clMain,getString(R.string.error_message_network_connection), Snackbar.LENGTH_SHORT).show()
     }
 
     private fun setupViews() {
