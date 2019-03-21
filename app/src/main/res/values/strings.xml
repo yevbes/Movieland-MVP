@@ -6,6 +6,7 @@
     <string name="error_message_network_connection">Please check internet connection</string>
     <string name="error_message_get_auth_access_token">Error fetching authentication user</string>
     <string name="error_message_approve_request_token">Error approve request code</string>
+    <string name="server_data_error_message">Can\'t get relevant data/configuration from server</string>
     <!-- END MAIN_CONTRACT SECTION -->
 
 

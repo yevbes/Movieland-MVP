@@ -7,16 +7,38 @@ import com.yevbes.movieland.domain.MainInteractor
 import com.yevbes.movieland.presentation.main.MainContract
 import com.yevbes.movieland.presentation.main.model.res.AuthAccessTokenRes
 import com.yevbes.movieland.presentation.main.model.res.AuthTokenRes
+import com.yevbes.movieland.presentation.main.model.res.ConfigurationRes
 import com.yevbes.movieland.utils.AndroidDisposable
 import com.yevbes.movieland.utils.NetworkStatusChecker
 import okhttp3.Response
 
 class MainPresenter(private val mView: MainContract.View) : MainContract.Presenter {
 
-
     private val mInteractor = MainInteractor
     private val context = MovielandApplication.getApplication().applicationContext
     private val preferencesManager = PreferencesManager
+
+    override fun getConfiguration(compositeDisposable: AndroidDisposable) {
+        mInteractor.getConfiguration(object : MainInteractor.OnConfigurationObtained {
+            override fun onSuccess(configurationRes: ConfigurationRes) {
+                // TODO: save configuration in some place & get it from first app start 
+            }
+
+            override fun onFailure(e: Throwable) {
+                e.printStackTrace()
+                mView.displayServerError(
+                    context.resources.getString(R.string.server_data_error_message)
+                )
+            }
+
+            override fun onComplete() {
+
+            }
+
+        },compositeDisposable)
+    }
+
+
 
     override fun getAuthRequestToken(compositeDisposable: AndroidDisposable) {
 

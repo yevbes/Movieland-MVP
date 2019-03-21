@@ -8,6 +8,7 @@ import com.yevbes.movieland.presentation.main.model.req.AuthAccessTokenReq
 import com.yevbes.movieland.presentation.main.model.req.AuthTokenReq
 import com.yevbes.movieland.presentation.main.model.res.AuthAccessTokenRes
 import com.yevbes.movieland.presentation.main.model.res.AuthTokenRes
+import com.yevbes.movieland.presentation.main.model.res.ConfigurationRes
 import com.yevbes.movieland.utils.AndroidDisposable
 import com.yevbes.movieland.utils.AppConfig
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -34,8 +35,42 @@ object MainInteractor : MainContract.Interactor {
         fun onComplete()
     }
 
+    interface OnConfigurationObtained {
+        fun onSuccess(configurationRes: ConfigurationRes)
+        fun onFailure(e: Throwable)
+        fun onComplete()
+    }
+
     private val restService = ServiceGenerator.createService(RestService::class.java)
     private val preferencesManager = PreferencesManager
+
+
+    override fun getConfiguration(
+        listener: MainInteractor.OnConfigurationObtained,
+        compositeDisposable: AndroidDisposable
+    ) {
+        compositeDisposable.add(
+            restService.getConfiguration()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(
+                    object : DisposableObserver<ConfigurationRes>() {
+                        override fun onComplete() {
+                            listener.onComplete()
+                        }
+
+                        override fun onNext(t: ConfigurationRes) {
+                            listener.onSuccess(t)
+                        }
+
+                        override fun onError(e: Throwable) {
+                            listener.onFailure(e)
+                        }
+                    }
+                )
+        )
+    }
+
 
     override fun getAuthRequestToken(
         listener: OnAuthRequestTokenObtained,

@@ -2,6 +2,9 @@ package com.yevbes.movieland.utils
 
 interface ConstantManager {
     companion object {
+        // MainActivity
+        const val KEY_STATE_TITLE = "KEY_STATE_TITLE"
+
         // SharedPrefs
         const val AUTH_REQUEST_TOKEN_KEY = "AUTH_REQUEST_TOKEN_KEY"
         const val AUTH_ACCESS_TOKEN_KEY = "AUTH_ACCESS_TOKEN_KEY"

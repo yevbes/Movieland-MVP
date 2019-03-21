@@ -7,6 +7,7 @@ interface MainContract {
     interface View {
         fun displayAuthenticationError(errorMessage: String)
         fun displayNetworkStatusError(errorMessage: String)
+        fun displayServerError(errorMessage: String)
 //        fun fetchData()
 //        fun reloadData()
     }
@@ -15,6 +16,7 @@ interface MainContract {
         fun getAuthRequestToken(compositeDisposable: AndroidDisposable)
         fun getAccessToken(compositeDisposable: AndroidDisposable)
         fun approveRequestToken(compositeDisposable: AndroidDisposable)
+        fun getConfiguration(compositeDisposable: AndroidDisposable)
     }
 
     interface Interactor {
@@ -30,6 +32,11 @@ interface MainContract {
 
         fun approveRequestToken(
             listener: MainInteractor.OnRequestTokenApproved,
+            compositeDisposable: AndroidDisposable
+        )
+
+        fun getConfiguration(
+            listener: MainInteractor.OnConfigurationObtained,
             compositeDisposable: AndroidDisposable
         )
     }

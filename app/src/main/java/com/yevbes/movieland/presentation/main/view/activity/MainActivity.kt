@@ -9,6 +9,7 @@ import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -26,12 +27,12 @@ import com.yevbes.movieland.utils.AndroidDisposable
 import com.yevbes.movieland.utils.ConstantManager
 
 class MainActivity : AppCompatActivity(), MainContract.View, NavigationView.OnNavigationItemSelectedListener{
-
     private lateinit var drawerToggle: ActionBarDrawerToggle
     private val compositeDisposable = AndroidDisposable()
     private var doubleBackToExitPressedOnce = false
     private var currentDrawerItemID: Int = 0
     lateinit var binding: ActivityMainBinding
+    lateinit var toolbar: Toolbar
     private lateinit var mPresenter: MainContract.Presenter
 
     private val topRatedMoviesFragment: TopRatedMoviesFragment by lazy {
@@ -61,20 +62,33 @@ class MainActivity : AppCompatActivity(), MainContract.View, NavigationView.OnNa
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        outState?.putCharSequence(ConstantManager.KEY_STATE_TITLE, title)
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
         mPresenter = MainPresenter(this)
-//        mPresenter.getAuthRequestToken(compositeDisposable)
+        // TODO: Change it lately
+        mPresenter.getConfiguration(compositeDisposable)
         setupViews()
 
         if (savedInstanceState == null) {
             loadFragment(ConstantManager.ACTION_TOP_RATED_MOVIES)
+            binding.nv.menu.findItem(R.id.nav_top_rated_movies).isChecked = true
+            title = resources.getString(R.string.action_top_rated_movies)
+        }else {
+            title = savedInstanceState.getCharSequence(ConstantManager.KEY_STATE_TITLE)
+
+            // TODO: NavDrawer settings arrow button
         }
 
-        // TODO: NavDrawer settings arrow button
-//        mPresenter.getAuthRequestToken(compositeDisposable)
+        //        mPresenter.getAuthRequestToken(compositeDisposable)
     }
 
     private inline fun <T : View> T.postEx(crossinline callback: T.() -> Unit) = post { callback() }
@@ -86,14 +100,12 @@ class MainActivity : AppCompatActivity(), MainContract.View, NavigationView.OnNa
                 if (currentDrawerItemID != ConstantManager.ACTION_TOP_RATED_MOVIES) {
                     loadFragment(ConstantManager.ACTION_TOP_RATED_MOVIES)
                 }
-                return true
             }
 
             R.id.nav_coming_soon -> {
                 if (currentDrawerItemID != ConstantManager.ACTION_COMING_SOON) {
                     loadFragment(ConstantManager.ACTION_COMING_SOON)
                 }
-                return true
 
             }
 
@@ -101,37 +113,30 @@ class MainActivity : AppCompatActivity(), MainContract.View, NavigationView.OnNa
                 if (currentDrawerItemID != ConstantManager.ACTION_IN_THEATERS) {
                     loadFragment(ConstantManager.ACTION_IN_THEATERS)
                 }
-                return true
-
             }
 
             R.id.nav_latest_trailers -> {
                 if (currentDrawerItemID != ConstantManager.ACTION_LATEST_TRAILERS) {
                     loadFragment(ConstantManager.ACTION_LATEST_TRAILERS)
                 }
-                return true
-
             }
 
             R.id.nav_most_popular_movies -> {
                 if (currentDrawerItemID != ConstantManager.ACTION_MOST_POPULAR) {
                     loadFragment(ConstantManager.ACTION_MOST_POPULAR)
                 }
-                return true
-
             }
 
             R.id.nav_showtimes_tickets -> {
                 if (currentDrawerItemID != ConstantManager.ACTION_SHOWTIMES_TICKETS) {
                     loadFragment(ConstantManager.ACTION_SHOWTIMES_TICKETS)
                 }
-                return true
-
-            }
-            else -> {
-                return true
             }
         }
+        p0.isChecked = true
+        title = p0.title
+        return true
+
     }
 
     override fun onConfigurationChanged(newConfig: Configuration?) {
@@ -166,11 +171,17 @@ class MainActivity : AppCompatActivity(), MainContract.View, NavigationView.OnNa
     }
 
     override fun displayNetworkStatusError(errorMessage: String) {
-        Snackbar.make(binding.clMain,getString(R.string.error_message_network_connection), Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(binding.clMain,errorMessage, Snackbar.LENGTH_SHORT).show()
     }
 
+    override fun displayServerError(errorMessage: String) {
+        Snackbar.make(binding.clMain, errorMessage, Snackbar.LENGTH_SHORT).show()
+    }
+
+
     private fun setupViews() {
-        setSupportActionBar(binding.tb)
+        toolbar = binding.tb as Toolbar
+        setSupportActionBar(toolbar)
 
         setTitle(R.string.app_name)
 
@@ -179,12 +190,12 @@ class MainActivity : AppCompatActivity(), MainContract.View, NavigationView.OnNa
             setDisplayHomeAsUpEnabled(true)
         }
 
-        binding.tb.setNavigationOnClickListener {
+        toolbar.setNavigationOnClickListener {
             binding.dl.openDrawer(GravityCompat.START)
         }
 
         drawerToggle = ActionBarDrawerToggle(
-            this, binding.dl, binding.tb,
+            this, binding.dl, toolbar,
             R.string.navigation_drawer_open, R.string.navigation_drawer_close
         )
 

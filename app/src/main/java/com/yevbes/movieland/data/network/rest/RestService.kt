@@ -4,6 +4,7 @@ import com.yevbes.movieland.presentation.main.model.req.AuthAccessTokenReq
 import com.yevbes.movieland.presentation.main.model.req.AuthTokenReq
 import com.yevbes.movieland.presentation.main.model.res.AuthAccessTokenRes
 import com.yevbes.movieland.presentation.main.model.res.AuthTokenRes
+import com.yevbes.movieland.presentation.main.model.res.ConfigurationRes
 import com.yevbes.movieland.presentation.top_rated.model.res.TopRatedMoviesRes
 import com.yevbes.movieland.utils.AppConfig
 import io.reactivex.Observable
@@ -39,5 +40,7 @@ interface RestService {
     fun getTopRatedMovies(
     ): Observable<TopRatedMoviesRes>
 
-
+    @GET("configuration")
+    fun getConfiguration(
+    ): Observable<ConfigurationRes>
 }

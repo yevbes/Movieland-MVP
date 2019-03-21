@@ -18,8 +18,7 @@ class TopRatedMoviesPresenter(
         if (NetworkStatusChecker.isInternetConnected(context)) {
             mInteractor.getTopRatedMovies(object : TopRatedInteractor.OnTopRatedMoviesObtained {
                 override fun onSuccess(topRatedMoviesRes: TopRatedMoviesRes) {
-                    val top = topRatedMoviesRes
-                    // TODO: pass data to adapter mView.rellenarAdaptador()
+                    mView.showMovies(topRatedMoviesRes.results)
                 }
 
                 override fun onFailure(e: Throwable) {
