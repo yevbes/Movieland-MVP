@@ -13,6 +13,8 @@ import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import com.labters.lottiealertdialoglibrary.DialogTypes
+import com.labters.lottiealertdialoglibrary.LottieAlertDialog
 import com.yevbes.movieland.R
 import com.yevbes.movieland.databinding.ActivityMainBinding
 import com.yevbes.movieland.presentation.comming_soon.view.fragment.ComingSoonFragment
@@ -32,7 +34,9 @@ class MainActivity : AppCompatActivity(), MainContract.View, NavigationView.OnNa
     private var doubleBackToExitPressedOnce = false
     private var currentDrawerItemID: Int = 0
     lateinit var binding: ActivityMainBinding
-    lateinit var toolbar: Toolbar
+    private lateinit var toolbar: Toolbar
+    private lateinit var alertDialog: LottieAlertDialog
+
     private lateinit var mPresenter: MainContract.Presenter
 
     private val topRatedMoviesFragment: TopRatedMoviesFragment by lazy {
@@ -62,8 +66,6 @@ class MainActivity : AppCompatActivity(), MainContract.View, NavigationView.OnNa
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-
-
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
@@ -73,20 +75,14 @@ class MainActivity : AppCompatActivity(), MainContract.View, NavigationView.OnNa
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
-        mPresenter = MainPresenter(this)
-        // TODO: Change it lately
-        mPresenter.getConfiguration(compositeDisposable)
         setupViews()
-
-        if (savedInstanceState == null) {
-            loadFragment(ConstantManager.ACTION_TOP_RATED_MOVIES)
-            binding.nv.menu.findItem(R.id.nav_top_rated_movies).isChecked = true
-            title = resources.getString(R.string.action_top_rated_movies)
-        }else {
+        mPresenter = MainPresenter(this)
+        mPresenter.getConfiguration(compositeDisposable)
+        if (savedInstanceState != null) {
             title = savedInstanceState.getCharSequence(ConstantManager.KEY_STATE_TITLE)
-
-            // TODO: NavDrawer settings arrow button
         }
+        // TODO: NavDrawer settings arrow button
+
 
         //        mPresenter.getAuthRequestToken(compositeDisposable)
     }
@@ -106,7 +102,6 @@ class MainActivity : AppCompatActivity(), MainContract.View, NavigationView.OnNa
                 if (currentDrawerItemID != ConstantManager.ACTION_COMING_SOON) {
                     loadFragment(ConstantManager.ACTION_COMING_SOON)
                 }
-
             }
 
             R.id.nav_in_theaters -> {
@@ -144,8 +139,6 @@ class MainActivity : AppCompatActivity(), MainContract.View, NavigationView.OnNa
         drawerToggle.onConfigurationChanged(newConfig)
     }
 
-
-
     override fun onBackPressed() {
         if (binding.dl.isDrawerOpen(GravityCompat.START)){
             binding.dl.closeDrawer(GravityCompat.START)
@@ -164,10 +157,26 @@ class MainActivity : AppCompatActivity(), MainContract.View, NavigationView.OnNa
 
     override fun onDestroy() {
         super.onDestroy()
-//        compositeDisposable.dispose()
+        compositeDisposable.dispose()
+    }
+
+    override fun showLoadDialog() {
+        alertDialog.show()
+    }
+
+    override fun dismissDialog() {
+        alertDialog.dismiss()
+    }
+
+
+    override fun loadTopRatedFragment() {
+        loadFragment(ConstantManager.ACTION_TOP_RATED_MOVIES)
+        binding.nv.menu.findItem(R.id.nav_top_rated_movies).isChecked = true
+        title = resources.getString(R.string.action_top_rated_movies)
     }
 
     override fun displayAuthenticationError(errorMessage: String) {
+
     }
 
     override fun displayNetworkStatusError(errorMessage: String) {
@@ -203,6 +212,12 @@ class MainActivity : AppCompatActivity(), MainContract.View, NavigationView.OnNa
 
         binding.dl.addDrawerListener(drawerToggle)
         drawerToggle.syncState()
+
+        alertDialog = LottieAlertDialog.Builder(this, DialogTypes.TYPE_LOADING)
+            .setTitle(getString(R.string.loading))
+            .setDescription(getString(R.string.please_wait_server_configurations))
+            .build()
+        alertDialog.setCancelable(false)
     }
 
     private fun loadFragment(currentDrawerItemID: Int) {

@@ -3,6 +3,7 @@ package com.yevbes.movieland
 import android.app.Application
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
+import com.yevbes.movieland.presentation.main.model.res.ConfigurationRes
 import io.reactivex.plugins.RxJavaPlugins
 
 
@@ -11,6 +12,7 @@ import io.reactivex.plugins.RxJavaPlugins
 class MovielandApplication : Application() {
 
     companion object {
+        private lateinit var configurationServer: ConfigurationRes
         private lateinit var mSharedPreferences: SharedPreferences
         private lateinit var sApplication: Application
 
@@ -22,6 +24,16 @@ class MovielandApplication : Application() {
         @JvmStatic
         fun getApplication(): Application {
             return sApplication
+        }
+
+        @JvmStatic
+        fun setConfigurationServer(configurationRes: ConfigurationRes) {
+            this.configurationServer = configurationRes
+        }
+
+        @JvmStatic
+        fun getConfigurationServer() : ConfigurationRes {
+            return configurationServer
         }
     }
 

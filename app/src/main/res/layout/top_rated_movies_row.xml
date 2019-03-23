@@ -3,6 +3,11 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable name="movie"
+                  type="com.yevbes.movieland.presentation.top_rated.model.res.TopRatedMoviesRes.Result"/>
+    </data>
+
     <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:layout_margin="8dp">
@@ -17,16 +22,16 @@
                          android:id="@+id/frameLayout" android:layout_marginBottom="16dp"
                          app:layout_constraintBottom_toBottomOf="parent">
 
-                <!-- TODO: use picasso to get & cache image from server -->
-                <com.jackandphantom.paletteshadowview.PaletteShadowView
+                <!-- TODO: use glide to get & cache image from server -->
+                <ImageView
                         android:layout_width="167dp"
                         android:layout_height="250dp"
-                        android:id="@+id/hr"
-                        app:paletteOffsetX="1"
-                        app:paletteOffsetY="1"
-                        app:paletteSrc="@drawable/portada"
+                        android:id="@+id/poster"
+                        android:src="@drawable/portada"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"/>
+                        android:layout_marginTop="8dp"
+                        android:padding="8dp"
+                        android:contentDescription="@{movie.title}"/>
 
                 <com.app.adprogressbarlib.AdCircleProgress
                         android:id="@+id/circularRating"
@@ -41,10 +46,10 @@
                         app:adpgb_text_size="12dp"
                         app:adpgb_show_text="true"
                         app:adpgb_unfinished_stroke_width="5dp"
-                        tools:adpgb_progress="50"
+                        tools:adpgb_progress="0"
                         app:adpgb_text_color="@android:color/background_light"
                         app:adpgb_background_color="@color/colorRatingCircleProgressBg"
-                        android:layout_marginStart="6dp" android:layout_marginTop="6dp"/>
+                        android:layout_marginStart="6dp" android:layout_marginTop="6dp" tools:targetApi="lollipop"/>
             </FrameLayout>
 
             <TextView
@@ -52,6 +57,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/tvTitle"
                     tools:text="Cadena perpetua"
+                    android:text="@{movie.title}"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginEnd="8dp"
@@ -63,6 +69,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="23dp"
                     android:id="@+id/tvDate"
+                    android:text="@{movie.releaseDate}"
                     tools:text=" 24 febrero 1995"
                     app:layout_constraintTop_toBottomOf="@+id/tvTitle"
                     app:layout_constraintStart_toStartOf="@+id/tvTitle" android:fontFamily="@font/open_sans"/>
@@ -71,6 +78,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/tvSummary"
                     app:layout_constraintEnd_toEndOf="parent"
+                    android:text="@{movie.overview}"
                     tools:text="Raj is a rich, carefree, happy-go-lucky second generation NRI. Simran is the daughter of Chaudhary Baldev Singh, who in spite of being an NRI is very strict about adherence to Indian values. Simran has left for India to be married to her childhood fiancé. Raj leaves for India with a mission at his hands, to claim his lady love under the noses of her whole family. Thus begins a saga."
                     android:maxLines="8"
                     android:fontFamily="@font/open_sans_light" android:textSize="14sp"

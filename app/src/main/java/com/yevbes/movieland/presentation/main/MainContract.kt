@@ -8,6 +8,9 @@ interface MainContract {
         fun displayAuthenticationError(errorMessage: String)
         fun displayNetworkStatusError(errorMessage: String)
         fun displayServerError(errorMessage: String)
+        fun loadTopRatedFragment()
+        fun showLoadDialog()
+        fun dismissDialog()
 //        fun fetchData()
 //        fun reloadData()
     }

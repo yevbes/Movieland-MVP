@@ -23,11 +23,14 @@ class TopRatedMoviesPresenter(
 
                 override fun onFailure(e: Throwable) {
                     e.printStackTrace()
-                    // TODO: Failure
+                    mView.displayServerError(
+                        context.resources.getString(R.string.server_data_error_message)
+                    )
+                    mView.stopSwipeRefreshView()
                 }
 
                 override fun onComplete() {
-
+                    mView.stopSwipeRefreshView()
                 }
 
             }, compositeDisposable)

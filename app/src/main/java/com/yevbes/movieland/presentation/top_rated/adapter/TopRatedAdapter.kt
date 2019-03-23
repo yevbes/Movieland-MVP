@@ -12,8 +12,13 @@ class TopRatedAdapter(
     RecyclerView.Adapter<TopRatedViewHolder>() {
 
     fun addAllItems(items: List<TopRatedMoviesRes.Result>){
+        clear()
         this.items.addAll(items)
         notifyDataSetChanged()
+    }
+
+    private fun clear(){
+        items.clear()
     }
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): TopRatedViewHolder {

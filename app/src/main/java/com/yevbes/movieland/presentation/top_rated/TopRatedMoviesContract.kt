@@ -8,6 +8,8 @@ interface TopRatedMoviesContract {
     interface View {
         fun displayNetworkStatusError(errorMessage: String)
         fun showMovies(result: List<TopRatedMoviesRes.Result>)
+        fun displayServerError(errorMessage: String)
+        fun stopSwipeRefreshView()
     }
 
     interface Presenter {

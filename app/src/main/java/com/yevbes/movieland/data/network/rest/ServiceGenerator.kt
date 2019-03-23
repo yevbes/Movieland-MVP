@@ -1,7 +1,9 @@
 package com.yevbes.movieland.data.network.rest
 
+import com.yevbes.movieland.MovielandApplication
 import com.yevbes.movieland.data.network.interceptors.HeaderInterceptor
 import com.yevbes.movieland.utils.AppConfig
+import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -13,6 +15,11 @@ class ServiceGenerator {
     companion object {
         // Builder for client
         private val httpClient = OkHttpClient.Builder()
+
+        // Caching response
+        private const val cacheSize = 10 * 1024 * 1024 // 10 MB
+        private val cache = Cache(MovielandApplication.getApplication().cacheDir, cacheSize.toLong())
+
 
         // Builder for Rest Service
         private val sBuilder = Retrofit.Builder()
@@ -29,6 +36,7 @@ class ServiceGenerator {
 //            httpClient.addInterceptor(ErrorInterceptor())
             httpClient.addInterceptor(HeaderInterceptor())
             httpClient.addInterceptor(loggingInterceptor)
+            httpClient.cache(cache)
 
             val retrofit = sBuilder
                 .client(httpClient.build())
