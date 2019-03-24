@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity(), MainContract.View, NavigationView.OnNa
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
     }
 
-  /*  override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
         outState?.putCharSequence(ConstantManager.KEY_STATE_TITLE, title)
     }
@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity(), MainContract.View, NavigationView.OnNa
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
         super.onRestoreInstanceState(savedInstanceState)
         title = savedInstanceState?.getCharSequence(ConstantManager.KEY_STATE_TITLE)
-    }*/
+    }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
