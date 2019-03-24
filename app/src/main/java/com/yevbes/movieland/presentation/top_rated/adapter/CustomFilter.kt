@@ -1,10 +1,10 @@
 package com.yevbes.movieland.presentation.top_rated.adapter
 
 import android.widget.Filter
-import com.yevbes.movieland.data.res.TopRatedMoviesRes
+import com.yevbes.movieland.data.res.MoviesRes
 
 class CustomFilter(
-    private val rowItemsFilter: ArrayList<TopRatedMoviesRes.Result>,
+    private val rowItemsFilter: ArrayList<MoviesRes.Result>,
     private val topRatedAdapter: TopRatedAdapter
 ) : Filter() {
 
@@ -16,7 +16,7 @@ class CustomFilter(
             //CHANGE TO UPPER
             const = const.toString().toUpperCase()
             //STORE OUR FILTERED ITEMS
-            val filteredItems = ArrayList<TopRatedMoviesRes.Result>()
+            val filteredItems = ArrayList<MoviesRes.Result>()
 
             for (i in 0 until rowItemsFilter.size) {
                 //CHECK
@@ -42,6 +42,6 @@ class CustomFilter(
 
     override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
         @Suppress("UNCHECKED_CAST")
-        topRatedAdapter.updateItemsFilterable(results?.values as ArrayList<TopRatedMoviesRes.Result>)
+        topRatedAdapter.updateItemsFilterable(results?.values as ArrayList<MoviesRes.Result>)
     }
 }

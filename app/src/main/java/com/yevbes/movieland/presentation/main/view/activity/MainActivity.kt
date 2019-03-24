@@ -35,9 +35,6 @@ class MainActivity : AppCompatActivity(), MainContract.View, NavigationView.OnNa
     private var currentDrawerItemID: Int = 0
     lateinit var binding: ActivityMainBinding
     private lateinit var toolbar: Toolbar
-    private lateinit var alertDialog: LottieAlertDialog
-
-    private lateinit var mPresenter: MainContract.Presenter
 
     private val topRatedMoviesFragment: TopRatedMoviesFragment by lazy {
         TopRatedMoviesFragment()
@@ -81,11 +78,13 @@ class MainActivity : AppCompatActivity(), MainContract.View, NavigationView.OnNa
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
         setupViews()
-        mPresenter = MainPresenter(this)
-        mPresenter.getConfiguration(compositeDisposable)
-       /* if (savedInstanceState != null) {
+        if (savedInstanceState != null) {
             title = savedInstanceState.getCharSequence(ConstantManager.KEY_STATE_TITLE)
-        }*/
+        }else{
+            loadFragment(ConstantManager.ACTION_TOP_RATED_MOVIES)
+            binding.nv.menu.findItem(R.id.nav_top_rated_movies).isChecked = true
+            title = resources.getString(R.string.action_top_rated_movies)
+        }
         // TODO: NavDrawer settings arrow button
 
 
@@ -165,21 +164,6 @@ class MainActivity : AppCompatActivity(), MainContract.View, NavigationView.OnNa
         compositeDisposable.dispose()
     }
 
-    override fun showLoadDialog() {
-        alertDialog.show()
-    }
-
-    override fun dismissDialog() {
-        alertDialog.dismiss()
-    }
-
-
-    override fun loadTopRatedFragment() {
-        loadFragment(ConstantManager.ACTION_TOP_RATED_MOVIES)
-        binding.nv.menu.findItem(R.id.nav_top_rated_movies).isChecked = true
-        title = resources.getString(R.string.action_top_rated_movies)
-    }
-
     override fun displayAuthenticationError(errorMessage: String) {
 
     }
@@ -217,12 +201,6 @@ class MainActivity : AppCompatActivity(), MainContract.View, NavigationView.OnNa
 
         binding.dl.addDrawerListener(drawerToggle)
         drawerToggle.syncState()
-
-        alertDialog = LottieAlertDialog.Builder(this, DialogTypes.TYPE_LOADING)
-            .setTitle(getString(R.string.loading))
-            .setDescription(getString(R.string.please_wait_server_configurations))
-            .build()
-        alertDialog.setCancelable(false)
     }
 
     private fun loadFragment(currentDrawerItemID: Int) {

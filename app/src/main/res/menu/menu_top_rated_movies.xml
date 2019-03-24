@@ -11,19 +11,10 @@
             app:showAsAction="always|collapseActionView"/>
 
     <item
+            android:id="@+id/action_filter"
             android:title="@string/action_filter"
+            android:checked="false"
             android:icon="@drawable/ic_baseline_filter_list_24px"
-            app:showAsAction="ifRoom">
-
-        <menu>
-            <!--<item
-                    android:id="@+id/action_filter"
-                    android:checkable="true"
-                    android:checked="true"
-                    android:title="@string/action_filter_desc" />-->
-        </menu>
-
-    </item>
-
+            app:showAsAction="ifRoom" />
 
 </menu>

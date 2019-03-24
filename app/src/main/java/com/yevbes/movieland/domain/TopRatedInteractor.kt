@@ -2,7 +2,7 @@ package com.yevbes.movieland.domain
 
 import com.yevbes.movieland.data.network.rest.RestService
 import com.yevbes.movieland.data.network.rest.ServiceGenerator
-import com.yevbes.movieland.data.res.TopRatedMoviesRes
+import com.yevbes.movieland.data.res.MoviesRes
 import com.yevbes.movieland.utils.AndroidDisposable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.annotations.NonNull
@@ -12,7 +12,7 @@ import io.reactivex.schedulers.Schedulers
 object TopRatedInteractor : TopRatedInteractorContract {
 
     interface OnTopRatedMoviesObtained {
-        fun onSuccess(topRatedMoviesRes: TopRatedMoviesRes)
+        fun onSuccess(moviesRes: MoviesRes)
         fun onFailure(e: Throwable)
         fun onComplete()
     }
@@ -29,10 +29,10 @@ object TopRatedInteractor : TopRatedInteractorContract {
                 )
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableObserver<TopRatedMoviesRes>() {
+                .subscribeWith(object : DisposableObserver<MoviesRes>() {
 
-                    override fun onNext(@NonNull topRatedMoviesRes: TopRatedMoviesRes) {
-                        listener.onSuccess(topRatedMoviesRes)
+                    override fun onNext(@NonNull moviesRes: MoviesRes) {
+                        listener.onSuccess(moviesRes)
                     }
 
                     override fun onError(@NonNull e: Throwable) {

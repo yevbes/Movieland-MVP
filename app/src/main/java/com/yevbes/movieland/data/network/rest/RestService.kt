@@ -5,7 +5,7 @@ import com.yevbes.movieland.data.req.AuthTokenReq
 import com.yevbes.movieland.data.res.AuthAccessTokenRes
 import com.yevbes.movieland.data.res.AuthTokenRes
 import com.yevbes.movieland.data.res.ConfigurationRes
-import com.yevbes.movieland.data.res.TopRatedMoviesRes
+import com.yevbes.movieland.data.res.MoviesRes
 import com.yevbes.movieland.utils.AppConfig
 import io.reactivex.Observable
 import retrofit2.Response
@@ -36,11 +36,15 @@ interface RestService {
         @Body requestToken: AuthAccessTokenReq
     ): Observable<AuthAccessTokenRes>
 
-    @GET("movie/top_rated")
-    fun getTopRatedMovies(
-    ): Observable<TopRatedMoviesRes>
-
     @GET("configuration")
     fun getConfiguration(
     ): Observable<ConfigurationRes>
+
+    @GET("movie/top_rated")
+    fun getTopRatedMovies(
+    ): Observable<MoviesRes>
+
+    @GET("discover/movie")
+    fun discoverMovie(
+    ): Observable<MoviesRes>
 }

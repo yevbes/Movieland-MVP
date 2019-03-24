@@ -9,12 +9,12 @@ import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SearchView
 import android.view.*
-import com.yevbes.movieland.presentation.main.view.activity.MainActivity
 import com.yevbes.movieland.R
+import com.yevbes.movieland.data.res.MoviesRes
 import com.yevbes.movieland.databinding.FragmentTopRatedMoviesBinding
+import com.yevbes.movieland.presentation.main.view.activity.MainActivity
 import com.yevbes.movieland.presentation.top_rated.TopRatedMoviesContract
 import com.yevbes.movieland.presentation.top_rated.adapter.TopRatedAdapter
-import com.yevbes.movieland.data.res.TopRatedMoviesRes
 import com.yevbes.movieland.presentation.top_rated.presenter.TopRatedMoviesPresenter
 import com.yevbes.movieland.utils.AndroidDisposable
 
@@ -27,6 +27,8 @@ class TopRatedMoviesFragment : Fragment(), SearchView.OnQueryTextListener, TopRa
     lateinit var binding: FragmentTopRatedMoviesBinding private set
     lateinit var mPresenter: TopRatedMoviesContract.Presenter private set
     lateinit var compositeDisposable: AndroidDisposable private set
+    //    lateinit var mSearchString: String private set
+    lateinit var searchView: SearchView private set
 
     private val mAdapter: TopRatedAdapter by lazy {
         TopRatedAdapter(arrayListOf())
@@ -54,29 +56,45 @@ class TopRatedMoviesFragment : Fragment(), SearchView.OnQueryTextListener, TopRa
         setupRecyclerView()
         setupRefreshSwipeView()
         mPresenter.getTopRatedMovies(compositeDisposable)
+
+        /*  if (savedInstanceState != null) {
+              mSearchString = savedInstanceState.getString(ConstantManager.KEY_QUERY_TEXT_CHANGE)!!
+          }
+  */
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        /*  mSearchString = searchView.query.toString()
+          outState.putString(ConstantManager.KEY_QUERY_TEXT_CHANGE, mSearchString)*/
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         inflater?.inflate(R.menu.menu_top_rated_movies, menu)
 
         val searchItem = menu?.findItem(R.id.action_search)
-        val searchView = searchItem?.actionView as SearchView
+        searchView = searchItem?.actionView as SearchView
         val searchManager = activity.getSystemService(Context.SEARCH_SERVICE) as SearchManager
         searchView.setSearchableInfo(searchManager.getSearchableInfo(activity.componentName))
         searchView.setOnQueryTextListener(this)
+
+        /*  //focus the SearchView
+          if (::mSearchString.isInitialized && !mSearchString.isEmpty()) {
+              searchItem.expandActionView()
+              searchView.setQuery(mSearchString, true)
+              searchView.clearFocus()
+          }*/
 
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item?.itemId) {
-           /* R.id.action_filter_desc -> {
-
+        when (item?.itemId) {
+            R.id.action_filter -> {
+                item.isChecked = !item.isChecked
+                binding.filterLayout.visibility =
+                    if (binding.filterLayout.visibility == View.GONE) View.VISIBLE else View.GONE
             }
-
-            R.id.action_filter_asc -> {
-
-            }*/
         }
         return super.onOptionsItemSelected(item)
     }
@@ -96,7 +114,7 @@ class TopRatedMoviesFragment : Fragment(), SearchView.OnQueryTextListener, TopRa
     }
 
     override fun displayNetworkStatusError(errorMessage: String) {
-        Snackbar.make(activity.binding.cl,errorMessage,Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(activity.binding.cl, errorMessage, Snackbar.LENGTH_SHORT).show()
     }
 
     private fun setupRecyclerView() {
@@ -108,7 +126,7 @@ class TopRatedMoviesFragment : Fragment(), SearchView.OnQueryTextListener, TopRa
         binding.rv.adapter = mAdapter
     }
 
-    private fun setupRefreshSwipeView(){
+    private fun setupRefreshSwipeView() {
         // TODO decor swipe refresh view
         binding.srl.isRefreshing = true
         binding.srl.setOnRefreshListener {
@@ -120,7 +138,7 @@ class TopRatedMoviesFragment : Fragment(), SearchView.OnQueryTextListener, TopRa
         binding.srl.isRefreshing = false
     }
 
-    override fun showMovies(result: ArrayList<TopRatedMoviesRes.Result>) {
+    override fun showMovies(result: ArrayList<MoviesRes.Result>) {
         mAdapter.updateItems(result)
     }
 

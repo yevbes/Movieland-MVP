@@ -8,9 +8,6 @@ interface MainContract {
         fun displayAuthenticationError(errorMessage: String)
         fun displayNetworkStatusError(errorMessage: String)
         fun displayServerError(errorMessage: String)
-        fun loadTopRatedFragment()
-        fun showLoadDialog()
-        fun dismissDialog()
 //        fun fetchData()
 //        fun reloadData()
     }
@@ -19,6 +16,5 @@ interface MainContract {
         fun getAuthRequestToken(compositeDisposable: AndroidDisposable)
         fun getAccessToken(compositeDisposable: AndroidDisposable)
         fun approveRequestToken(compositeDisposable: AndroidDisposable)
-        fun getConfiguration(compositeDisposable: AndroidDisposable)
     }
 }

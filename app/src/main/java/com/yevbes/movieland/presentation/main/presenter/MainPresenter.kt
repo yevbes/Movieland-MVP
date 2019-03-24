@@ -17,34 +17,6 @@ class MainPresenter(private val mView: MainContract.View) : MainContract.Present
     private val context = MovielandApplication.getApplication().applicationContext
     private val preferencesManager = PreferencesManager
 
-    override fun getConfiguration(compositeDisposable: AndroidDisposable) {
-        if (NetworkStatusChecker.isInternetConnected(context)) {
-            mView.showLoadDialog()
-            mInteractor.getConfiguration(object : MainInteractor.OnConfigurationObtained {
-                override fun onSuccess(configurationRes: ConfigurationRes) {
-                    MovielandApplication.setConfigurationServer(configurationRes)
-                }
-
-                override fun onFailure(e: Throwable) {
-                    e.printStackTrace()
-                    mView.dismissDialog()
-                    mView.displayServerError(
-                        context.resources.getString(R.string.server_data_error_message)
-                    )
-                }
-
-                override fun onComplete() {
-                    mView.loadTopRatedFragment()
-                    mView.dismissDialog()
-                }
-
-            }, compositeDisposable)
-        } else {
-            mView.displayNetworkStatusError(context.resources.getString(R.string.error_message_network_connection))
-        }
-    }
-
-
     override fun getAuthRequestToken(compositeDisposable: AndroidDisposable) {
 
         if (NetworkStatusChecker.isInternetConnected(context)) {

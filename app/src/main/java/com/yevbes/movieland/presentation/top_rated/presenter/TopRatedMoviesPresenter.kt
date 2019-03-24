@@ -4,7 +4,7 @@ import com.yevbes.movieland.MovielandApplication
 import com.yevbes.movieland.R
 import com.yevbes.movieland.domain.TopRatedInteractor
 import com.yevbes.movieland.presentation.top_rated.TopRatedMoviesContract
-import com.yevbes.movieland.data.res.TopRatedMoviesRes
+import com.yevbes.movieland.data.res.MoviesRes
 import com.yevbes.movieland.utils.AndroidDisposable
 import com.yevbes.movieland.utils.NetworkStatusChecker
 
@@ -17,9 +17,9 @@ class TopRatedMoviesPresenter(
     override fun getTopRatedMovies(compositeDisposable: AndroidDisposable) {
         if (NetworkStatusChecker.isInternetConnected(context)) {
             mInteractor.getTopRatedMovies(object : TopRatedInteractor.OnTopRatedMoviesObtained {
-                override fun onSuccess(topRatedMoviesRes: TopRatedMoviesRes) {
-                    val list = ArrayList<TopRatedMoviesRes.Result>()
-                    list.addAll(topRatedMoviesRes.results)
+                override fun onSuccess(moviesRes: MoviesRes) {
+                    val list = ArrayList<MoviesRes.Result>()
+                    list.addAll(moviesRes.results)
                     mView.showMovies(list)
                 }
 

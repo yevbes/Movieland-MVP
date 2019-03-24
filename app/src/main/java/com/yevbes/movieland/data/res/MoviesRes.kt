@@ -3,7 +3,7 @@ package com.yevbes.movieland.data.res
 
 import com.google.gson.annotations.SerializedName
 
-data class TopRatedMoviesRes(
+data class MoviesRes(
     @SerializedName("page")
     val page: Int,
     @SerializedName("results")

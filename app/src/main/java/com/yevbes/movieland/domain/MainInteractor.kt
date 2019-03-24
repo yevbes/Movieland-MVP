@@ -35,41 +35,10 @@ object MainInteractor : MainInteractorContract {
         fun onComplete()
     }
 
-    interface OnConfigurationObtained {
-        fun onSuccess(configurationRes: ConfigurationRes)
-        fun onFailure(e: Throwable)
-        fun onComplete()
-    }
+
 
     private val restService = ServiceGenerator.createService(RestService::class.java)
     private val preferencesManager = PreferencesManager
-
-
-    override fun getConfiguration(
-        listener: MainInteractor.OnConfigurationObtained,
-        compositeDisposable: AndroidDisposable
-    ) {
-        compositeDisposable.add(
-            restService.getConfiguration()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(
-                    object : DisposableObserver<ConfigurationRes>() {
-                        override fun onComplete() {
-                            listener.onComplete()
-                        }
-
-                        override fun onNext(t: ConfigurationRes) {
-                            listener.onSuccess(t)
-                        }
-
-                        override fun onError(e: Throwable) {
-                            listener.onFailure(e)
-                        }
-                    }
-                )
-        )
-    }
 
 
     override fun getAuthRequestToken(

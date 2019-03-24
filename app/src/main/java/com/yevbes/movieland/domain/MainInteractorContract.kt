@@ -18,9 +18,4 @@ interface MainInteractorContract {
         listener: MainInteractor.OnRequestTokenApproved,
         compositeDisposable: AndroidDisposable
     )
-
-    fun getConfiguration(
-        listener: MainInteractor.OnConfigurationObtained,
-        compositeDisposable: AndroidDisposable
-    )
 }
