@@ -3,12 +3,9 @@ package com.yevbes.movieland.presentation.top_rated.view.fragment
 
 import android.app.SearchManager
 import android.content.Context
-import android.content.res.Configuration
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
-import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SearchView
 import android.view.*
@@ -17,10 +14,9 @@ import com.yevbes.movieland.R
 import com.yevbes.movieland.databinding.FragmentTopRatedMoviesBinding
 import com.yevbes.movieland.presentation.top_rated.TopRatedMoviesContract
 import com.yevbes.movieland.presentation.top_rated.adapter.TopRatedAdapter
-import com.yevbes.movieland.presentation.top_rated.model.res.TopRatedMoviesRes
+import com.yevbes.movieland.data.res.TopRatedMoviesRes
 import com.yevbes.movieland.presentation.top_rated.presenter.TopRatedMoviesPresenter
 import com.yevbes.movieland.utils.AndroidDisposable
-import com.yevbes.movieland.utils.ConstantManager
 
 /**
  * A simple [Fragment] subclass.

@@ -1,7 +1,7 @@
 package com.yevbes.movieland.presentation.top_rated.adapter
 
 import android.widget.Filter
-import com.yevbes.movieland.presentation.top_rated.model.res.TopRatedMoviesRes
+import com.yevbes.movieland.data.res.TopRatedMoviesRes
 
 class CustomFilter(
     private val rowItemsFilter: ArrayList<TopRatedMoviesRes.Result>,

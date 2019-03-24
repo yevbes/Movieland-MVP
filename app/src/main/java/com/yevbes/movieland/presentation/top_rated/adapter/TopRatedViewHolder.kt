@@ -1,13 +1,11 @@
 package com.yevbes.movieland.presentation.top_rated.adapter
 
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.yevbes.movieland.MovielandApplication
-import com.yevbes.movieland.R
 
 import com.yevbes.movieland.databinding.TopRatedMoviesRowBinding
-import com.yevbes.movieland.presentation.top_rated.model.res.TopRatedMoviesRes
+import com.yevbes.movieland.data.res.TopRatedMoviesRes
 
 class TopRatedViewHolder(private val binding: TopRatedMoviesRowBinding) : RecyclerView.ViewHolder(binding.root) {
 

@@ -3,7 +3,7 @@ package com.yevbes.movieland
 import android.app.Application
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
-import com.yevbes.movieland.presentation.main.model.res.ConfigurationRes
+import com.yevbes.movieland.data.res.ConfigurationRes
 import io.reactivex.plugins.RxJavaPlugins
 
 

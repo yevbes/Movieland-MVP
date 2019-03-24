@@ -1,4 +1,4 @@
-package com.yevbes.movieland.presentation.main.model.req
+package com.yevbes.movieland.data.req
 
 import com.google.gson.annotations.SerializedName
 

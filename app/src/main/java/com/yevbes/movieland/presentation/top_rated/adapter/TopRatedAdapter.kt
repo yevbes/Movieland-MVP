@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import com.yevbes.movieland.databinding.TopRatedMoviesRowBinding
-import com.yevbes.movieland.presentation.top_rated.model.res.TopRatedMoviesRes
+import com.yevbes.movieland.data.res.TopRatedMoviesRes
 
 
 class TopRatedAdapter(

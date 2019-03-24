@@ -4,11 +4,11 @@ import com.yevbes.movieland.data.managers.PreferencesManager
 import com.yevbes.movieland.data.network.rest.RestService
 import com.yevbes.movieland.data.network.rest.ServiceGenerator
 import com.yevbes.movieland.presentation.main.MainContract
-import com.yevbes.movieland.presentation.main.model.req.AuthAccessTokenReq
-import com.yevbes.movieland.presentation.main.model.req.AuthTokenReq
-import com.yevbes.movieland.presentation.main.model.res.AuthAccessTokenRes
-import com.yevbes.movieland.presentation.main.model.res.AuthTokenRes
-import com.yevbes.movieland.presentation.main.model.res.ConfigurationRes
+import com.yevbes.movieland.data.req.AuthAccessTokenReq
+import com.yevbes.movieland.data.req.AuthTokenReq
+import com.yevbes.movieland.data.res.AuthAccessTokenRes
+import com.yevbes.movieland.data.res.AuthTokenRes
+import com.yevbes.movieland.data.res.ConfigurationRes
 import com.yevbes.movieland.utils.AndroidDisposable
 import com.yevbes.movieland.utils.AppConfig
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -16,7 +16,7 @@ import io.reactivex.annotations.NonNull
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 
-object MainInteractor : MainContract.Interactor {
+object MainInteractor : MainInteractorContract {
     interface OnAuthRequestTokenObtained {
         fun onSuccess(authTokenRes: AuthTokenRes)
         fun onFailure(e: Throwable)

@@ -21,26 +21,4 @@ interface MainContract {
         fun approveRequestToken(compositeDisposable: AndroidDisposable)
         fun getConfiguration(compositeDisposable: AndroidDisposable)
     }
-
-    interface Interactor {
-        fun getAuthRequestToken(
-            listener: MainInteractor.OnAuthRequestTokenObtained,
-            compositeDisposable: AndroidDisposable
-        )
-
-        fun getAccessToken(
-            listener: MainInteractor.OnAccessTokenObtained,
-            compositeDisposable: AndroidDisposable
-        )
-
-        fun approveRequestToken(
-            listener: MainInteractor.OnRequestTokenApproved,
-            compositeDisposable: AndroidDisposable
-        )
-
-        fun getConfiguration(
-            listener: MainInteractor.OnConfigurationObtained,
-            compositeDisposable: AndroidDisposable
-        )
-    }
 }

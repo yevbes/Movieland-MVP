@@ -1,4 +1,4 @@
-package com.yevbes.movieland.presentation.top_rated.model.res
+package com.yevbes.movieland.data.res
 
 
 import com.google.gson.annotations.SerializedName

@@ -4,7 +4,7 @@ import com.yevbes.movieland.MovielandApplication
 import com.yevbes.movieland.R
 import com.yevbes.movieland.domain.TopRatedInteractor
 import com.yevbes.movieland.presentation.top_rated.TopRatedMoviesContract
-import com.yevbes.movieland.presentation.top_rated.model.res.TopRatedMoviesRes
+import com.yevbes.movieland.data.res.TopRatedMoviesRes
 import com.yevbes.movieland.utils.AndroidDisposable
 import com.yevbes.movieland.utils.NetworkStatusChecker
 

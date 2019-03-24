@@ -1,11 +1,11 @@
 package com.yevbes.movieland.data.network.rest
 
-import com.yevbes.movieland.presentation.main.model.req.AuthAccessTokenReq
-import com.yevbes.movieland.presentation.main.model.req.AuthTokenReq
-import com.yevbes.movieland.presentation.main.model.res.AuthAccessTokenRes
-import com.yevbes.movieland.presentation.main.model.res.AuthTokenRes
-import com.yevbes.movieland.presentation.main.model.res.ConfigurationRes
-import com.yevbes.movieland.presentation.top_rated.model.res.TopRatedMoviesRes
+import com.yevbes.movieland.data.req.AuthAccessTokenReq
+import com.yevbes.movieland.data.req.AuthTokenReq
+import com.yevbes.movieland.data.res.AuthAccessTokenRes
+import com.yevbes.movieland.data.res.AuthTokenRes
+import com.yevbes.movieland.data.res.ConfigurationRes
+import com.yevbes.movieland.data.res.TopRatedMoviesRes
 import com.yevbes.movieland.utils.AppConfig
 import io.reactivex.Observable
 import retrofit2.Response

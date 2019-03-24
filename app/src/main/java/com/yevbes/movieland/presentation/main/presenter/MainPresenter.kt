@@ -5,9 +5,9 @@ import com.yevbes.movieland.R
 import com.yevbes.movieland.data.managers.PreferencesManager
 import com.yevbes.movieland.domain.MainInteractor
 import com.yevbes.movieland.presentation.main.MainContract
-import com.yevbes.movieland.presentation.main.model.res.AuthAccessTokenRes
-import com.yevbes.movieland.presentation.main.model.res.AuthTokenRes
-import com.yevbes.movieland.presentation.main.model.res.ConfigurationRes
+import com.yevbes.movieland.data.res.AuthAccessTokenRes
+import com.yevbes.movieland.data.res.AuthTokenRes
+import com.yevbes.movieland.data.res.ConfigurationRes
 import com.yevbes.movieland.utils.AndroidDisposable
 import com.yevbes.movieland.utils.NetworkStatusChecker
 
