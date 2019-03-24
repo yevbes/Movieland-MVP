@@ -1,24 +1,53 @@
 package com.yevbes.movieland.presentation.top_rated.adapter
 
 import android.support.v7.widget.RecyclerView
-import android.view.ViewGroup
-import com.yevbes.movieland.presentation.top_rated.model.res.TopRatedMoviesRes
 import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import com.yevbes.movieland.databinding.TopRatedMoviesRowBinding
+import com.yevbes.movieland.presentation.top_rated.model.res.TopRatedMoviesRes
 
 
 class TopRatedAdapter(
-                      private val items: ArrayList<TopRatedMoviesRes.Result>) :
-    RecyclerView.Adapter<TopRatedViewHolder>() {
+    private var items: ArrayList<TopRatedMoviesRes.Result>) :
+    RecyclerView.Adapter<TopRatedViewHolder>(), Filterable {
+
+    private lateinit var mFilter: CustomFilter
+
+    // for CustomFilter
+    private var rowItemsFilter: ArrayList<TopRatedMoviesRes.Result> = ArrayList()
+
+
+    override fun getFilter(): Filter {
+        if (!::mFilter.isInitialized) {
+            mFilter = CustomFilter(rowItemsFilter, this@TopRatedAdapter)
+        }
+        return mFilter
+    }
 
     fun addAllItems(items: List<TopRatedMoviesRes.Result>){
-        clear()
         this.items.addAll(items)
+        this.rowItemsFilter.addAll(items)
+        notifyItemRangeInserted(itemCount,items.size)
+    }
+
+    fun updateItems(items: ArrayList<TopRatedMoviesRes.Result>){
+        this.items = items
+        this.rowItemsFilter = items
         notifyDataSetChanged()
     }
 
-    private fun clear(){
+    fun updateItemsFilterable(items: ArrayList<TopRatedMoviesRes.Result>){
+        this.items = items
+        notifyDataSetChanged()
+    }
+
+
+    fun clearAdapter(){
         items.clear()
+        rowItemsFilter.clear()
+        notifyItemRangeRemoved(0,itemCount)
     }
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): TopRatedViewHolder {

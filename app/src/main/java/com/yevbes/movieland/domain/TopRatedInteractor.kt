@@ -32,8 +32,8 @@ object TopRatedInteractor : TopRatedMoviesContract.Interactor {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableObserver<TopRatedMoviesRes>() {
 
-                    override fun onNext(@NonNull authTokenRes: TopRatedMoviesRes) {
-                        listener.onSuccess(authTokenRes)
+                    override fun onNext(@NonNull topRatedMoviesRes: TopRatedMoviesRes) {
+                        listener.onSuccess(topRatedMoviesRes)
                     }
 
                     override fun onError(@NonNull e: Throwable) {

@@ -18,7 +18,9 @@ class TopRatedMoviesPresenter(
         if (NetworkStatusChecker.isInternetConnected(context)) {
             mInteractor.getTopRatedMovies(object : TopRatedInteractor.OnTopRatedMoviesObtained {
                 override fun onSuccess(topRatedMoviesRes: TopRatedMoviesRes) {
-                    mView.showMovies(topRatedMoviesRes.results)
+                    val list = ArrayList<TopRatedMoviesRes.Result>()
+                    list.addAll(topRatedMoviesRes.results)
+                    mView.showMovies(list)
                 }
 
                 override fun onFailure(e: Throwable) {

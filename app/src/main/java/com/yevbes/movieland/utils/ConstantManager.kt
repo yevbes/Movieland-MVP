@@ -20,5 +20,8 @@ interface ConstantManager {
 
         // Interceptor
         const val API_KEY = "api_key"
+
+        // TopRatedMoviesFragment
+        const val KEY_QUERY_TEXT_CHANGE = "KEY_QUERY_TEXT_CHANGE"
     }
 }

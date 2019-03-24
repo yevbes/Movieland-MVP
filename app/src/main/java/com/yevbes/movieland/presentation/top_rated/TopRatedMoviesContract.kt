@@ -7,7 +7,7 @@ import com.yevbes.movieland.utils.AndroidDisposable
 interface TopRatedMoviesContract {
     interface View {
         fun displayNetworkStatusError(errorMessage: String)
-        fun showMovies(result: List<TopRatedMoviesRes.Result>)
+        fun showMovies(result: ArrayList<TopRatedMoviesRes.Result>)
         fun displayServerError(errorMessage: String)
         fun stopSwipeRefreshView()
     }

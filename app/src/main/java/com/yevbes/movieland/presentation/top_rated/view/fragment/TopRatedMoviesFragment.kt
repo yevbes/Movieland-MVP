@@ -1,6 +1,8 @@
 package com.yevbes.movieland.presentation.top_rated.view.fragment
 
 
+import android.app.SearchManager
+import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -8,6 +10,7 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.SearchView
 import android.view.*
 import com.yevbes.movieland.presentation.main.view.activity.MainActivity
 import com.yevbes.movieland.R
@@ -17,12 +20,13 @@ import com.yevbes.movieland.presentation.top_rated.adapter.TopRatedAdapter
 import com.yevbes.movieland.presentation.top_rated.model.res.TopRatedMoviesRes
 import com.yevbes.movieland.presentation.top_rated.presenter.TopRatedMoviesPresenter
 import com.yevbes.movieland.utils.AndroidDisposable
+import com.yevbes.movieland.utils.ConstantManager
 
 /**
  * A simple [Fragment] subclass.
  *
  */
-class TopRatedMoviesFragment : Fragment(), TopRatedMoviesContract.View {
+class TopRatedMoviesFragment : Fragment(), SearchView.OnQueryTextListener, TopRatedMoviesContract.View {
     lateinit var activity: MainActivity private set
     lateinit var binding: FragmentTopRatedMoviesBinding private set
     lateinit var mPresenter: TopRatedMoviesContract.Presenter private set
@@ -58,15 +62,18 @@ class TopRatedMoviesFragment : Fragment(), TopRatedMoviesContract.View {
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         inflater?.inflate(R.menu.menu_top_rated_movies, menu)
+
+        val searchItem = menu?.findItem(R.id.action_search)
+        val searchView = searchItem?.actionView as SearchView
+        val searchManager = activity.getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(activity.componentName))
+        searchView.setOnQueryTextListener(this)
+
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item?.itemId) {
-            R.id.action_search -> {
-                // TODO: Implement search
-            }
-
            /* R.id.action_filter_desc -> {
 
             }
@@ -81,6 +88,15 @@ class TopRatedMoviesFragment : Fragment(), TopRatedMoviesContract.View {
     override fun onDestroyView() {
         super.onDestroyView()
         compositeDisposable.dispose()
+    }
+
+    override fun onQueryTextSubmit(p0: String?): Boolean {
+        return true
+    }
+
+    override fun onQueryTextChange(p0: String?): Boolean {
+        mAdapter.filter.filter(p0)
+        return true
     }
 
     override fun displayNetworkStatusError(errorMessage: String) {
@@ -108,8 +124,8 @@ class TopRatedMoviesFragment : Fragment(), TopRatedMoviesContract.View {
         binding.srl.isRefreshing = false
     }
 
-    override fun showMovies(result: List<TopRatedMoviesRes.Result>) {
-        mAdapter.addAllItems(result)
+    override fun showMovies(result: ArrayList<TopRatedMoviesRes.Result>) {
+        mAdapter.updateItems(result)
     }
 
     override fun displayServerError(errorMessage: String) {
