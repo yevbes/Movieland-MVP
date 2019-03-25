@@ -6,7 +6,7 @@ import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.SearchView
 import android.view.*
 import com.yevbes.movieland.R
@@ -118,20 +118,21 @@ class TopRatedMoviesFragment : Fragment(), SearchView.OnQueryTextListener, TopRa
     }
 
     private fun setupRecyclerView() {
-        val layoutManager = LinearLayoutManager(
-            activity, LinearLayoutManager.VERTICAL, false
+        binding.rv.layoutManager = GridLayoutManager(
+            activity, resources.getInteger(R.integer.grid_layout)
         )
-
-        binding.rv.layoutManager = layoutManager
         binding.rv.adapter = mAdapter
     }
 
     private fun setupRefreshSwipeView() {
         // TODO decor swipe refresh view
-        binding.srl.isRefreshing = true
         binding.srl.setOnRefreshListener {
             mPresenter.getTopRatedMovies(compositeDisposable)
         }
+    }
+
+    override fun startSwipeRefreshView() {
+        binding.srl.isRefreshing = true
     }
 
     override fun stopSwipeRefreshView() {

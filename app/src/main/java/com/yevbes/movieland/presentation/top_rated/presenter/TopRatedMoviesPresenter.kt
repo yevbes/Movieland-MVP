@@ -16,6 +16,7 @@ class TopRatedMoviesPresenter(
 
     override fun getTopRatedMovies(compositeDisposable: AndroidDisposable) {
         if (NetworkStatusChecker.isInternetConnected(context)) {
+            mView.startSwipeRefreshView()
             mInteractor.getTopRatedMovies(object : TopRatedInteractor.OnTopRatedMoviesObtained {
                 override fun onSuccess(moviesRes: MoviesRes) {
                     val list = ArrayList<MoviesRes.Result>()

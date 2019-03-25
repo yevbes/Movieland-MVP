@@ -9,6 +9,7 @@ interface TopRatedMoviesContract {
         fun showMovies(result: ArrayList<MoviesRes.Result>)
         fun displayServerError(errorMessage: String)
         fun stopSwipeRefreshView()
+        fun startSwipeRefreshView()
     }
 
     interface Presenter {
